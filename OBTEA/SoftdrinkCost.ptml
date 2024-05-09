@@ -1,0 +1,23 @@
+selector{
+cond c_goal
+sequence{
+cond 1
+ cond 4
+act a1()
+}
+sequence{
+cond 1
+ cond 2
+ cond 3
+act a2()
+}
+sequence{
+cond 1
+ cond 2
+act a3()
+}
+sequence{
+cond c_start
+act a4()
+}
+}

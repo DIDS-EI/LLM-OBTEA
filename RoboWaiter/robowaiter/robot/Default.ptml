@@ -1,0 +1,23 @@
+selector
+    sequence
+        cond Chatting()
+        act DealChat()
+    sequence
+        cond HasSubTask()
+        sequence
+            act SubTaskPlaceHolder()
+    sequence
+        cond FocusingCustomer()
+        act ServeCustomer()
+    sequence
+        cond NewCustomer()
+        selector
+            cond RobotNear(Bar)
+            act MoveTo(Bar)
+        act GreetCustomer()
+    sequence
+        cond NeedExplore()
+        act ExploreEnv()
+    sequence
+        cond AnomalyDetected()
+        act ResolveAnomaly()
