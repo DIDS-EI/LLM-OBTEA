@@ -1,6 +1,6 @@
 # Integrating Intent Understanding and Optimal Behavior Planning for Behavior Tree Generation from Human instructions (IJCAI 2024)
 
-[[Website]](https://dids-ei.github.io/Project/LLM-OBTEA/)
+[[Website]](https://dids-ei.github.io/Project/LLM-OBTEA/) [[arXiv]](https://arxiv.org/pdf/2405.07474)
 
 This repository contains the code for our project, which is divided into three main sections:
 
