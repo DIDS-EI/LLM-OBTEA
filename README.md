@@ -19,4 +19,4 @@ We are committed to continuously updating and improving this repository, so stay
 
 ## License
 
-This repository is released under the Apache 2.0 license as found in the [LICENSE](LICENSE.md) file.
+This repository is released under the MIT license as found in the [LICENSE](LICENSE) file.
