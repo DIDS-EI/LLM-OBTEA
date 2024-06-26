@@ -10,7 +10,7 @@ This repository contains the code for our project, which is divided into three m
 
 3. **RoboWaiter Folder**:  It contains code for deploying our algorithms in a café's digital twin scenario, showcasing the practical application of our research in simulating and enhancing café service operations.
 
-   👉 [Download Simulator](https://drive.google.com/file/d/1ZQ_Muf3b8kPgit-cIsf0VxsrMGKX8cx7/view?usp=sharing)
+   👉 [Download Simulator](https://drive.google.com/file/d/1ayAQZbPOyQV2W-V_ZdYv6AoqLOg0zvm1/view?usp=sharing)
 
 We are committed to continuously updating and improving this repository, so stay tuned for future enhancements and additions.
 
