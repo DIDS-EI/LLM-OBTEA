@@ -6,6 +6,7 @@
         <entryData>
           <resourceRoots>
             <path value="file://$PROJECT_DIR$/RoboWaiter" />
+            <path value="file://$PROJECT_DIR$" />
           </resourceRoots>
         </entryData>
       </entry>
