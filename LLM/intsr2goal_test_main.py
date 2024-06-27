@@ -29,25 +29,20 @@ def append_to_csv(filename, data):
         writer.writerow(data)
 
 
-def print_green(text):
-    """Prints the provided text in green color in the terminal."""
-    green_color_code = '\033[92m'  # ANSI escape sequence for green color
+def print_colored(text,color):
+    color_code = '\033[0m'
+    if color=="grean":
+        color_code = '\033[92m'
+    elif color=="blue":
+        color_code = '\033[94m'
+    elif color=="yellow":
+        color_code = '\033[93m'
+    elif color=="orange":
+        color_code = '\033[38;2;255;165;0m'
+    elif color=="red":
+        color_code = '\033[91m'
     reset_color_code = '\033[0m'  # ANSI escape sequence to reset color to default
-    print(f"{green_color_code}{text}{reset_color_code}")
-
-
-def print_blue(text):
-    """Prints the provided text in blue color in the terminal."""
-    blue_color_code = '\033[94m'  # ANSI escape sequence for blue color
-    reset_color_code = '\033[0m'  # ANSI escape sequence to reset color to default
-    print(f"{blue_color_code}{text}{reset_color_code}")
-
-
-def print_yellow(text):
-    """Prints the provided text in yellow color in the terminal."""
-    yellow_color_code = '\033[93m'  # ANSI escape sequence for yellow color
-    reset_color_code = '\033[0m'  # ANSI escape sequence to reset color to default
-    print(f"{yellow_color_code}{text}{reset_color_code}")
+    print(f"{color_code}{text}{reset_color_code}")
 
 
 def print_status(grammar_correct, content_correct):
@@ -63,13 +58,6 @@ def print_status(grammar_correct, content_correct):
     # Print with the appropriate colors
     print(f"{grammar_color}Grammar_correct: {grammar_correct}{reset_color} "
           f"{content_color}Content_correct: {content_correct}{reset_color}")
-
-
-def print_orange(text):
-    """Prints the provided text in orange color in the terminal."""
-    orange_color_code = '\033[38;2;255;165;0m'  # RGB escape sequence for orange color
-    reset_color_code = '\033[0m'  # ANSI escape sequence to reset color to default
-    print(f"{orange_color_code}{text}{reset_color_code}")
 
 
 def generate_prompt1(num_examples, diffculty):
@@ -184,7 +172,7 @@ def evaluate_section(prompt, section, csv_filename, id):
     x, y = section.strip().splitlines()
     question = x.strip()
     correct_answer = y.strip().replace("Goal: ", "")
-    print_orange(f"id:{id}  correct_answer: {correct_answer} Q:{question}")
+    print_colored(f"id:{id}  correct_answer: {correct_answer} Q:{question}","orange")
     error_black_set = [set(), set(), set()]
     feedback_time = 0
 
@@ -200,7 +188,7 @@ def evaluate_section(prompt, section, csv_filename, id):
         messages = [{"role": "user", "content": prompt + "\n" + question}]
         answer = llm.request(message=messages)
         messages.append({"role": "assistant", "content": answer})
-        print_yellow(f"id:{id}  {feedback_time}th Answer: {answer}  Q:{question}")
+        print_colored(f"id:{id}  {feedback_time}th Answer: {answer}  Q:{question}","yellow")
 
         # record
         data_record += [answer]
@@ -235,111 +223,112 @@ def evaluate_section(prompt, section, csv_filename, id):
     return results, data_record
 
 
-# Define file paths and read datasets
-easy_data_set_file = "../dataset/easy_instr_goal.txt"
-medium_data_set_file = "../dataset/medium_instr_goal.txt"
-hard_data_set_file = "../dataset/hard_instr_goal.txt"
+# Main execution flow setup
+if __name__ == "__main__":
+    # Define file paths and read datasets
+    easy_data_set_file = "dataset/easy_instr_goal.txt"
+    medium_data_set_file = "dataset/medium_instr_goal.txt"
+    hard_data_set_file = "dataset/hard_instr_goal.txt"
 
-test_data_set_file = "../dataset/test.txt"
+    test_data_set_file = "dataset/test.txt"
 
-data_set_file = "../dataset/data100.txt"
-prompt_file1 = "../dataset/prompt_test1.txt"
-prompt_file2 = "../dataset/prompt_test2.txt"
+    data_set_file = "dataset/data100.txt"
+    prompt_file1 = "dataset/prompt_test1.txt"
+    prompt_file2 = "dataset/prompt_test2.txt"
 
-with open(easy_data_set_file, 'r', encoding="utf-8") as f:
-    easy_data_set = f.read().strip()
-with open(medium_data_set_file, 'r', encoding="utf-8") as f:
-    medium_data_set = f.read().strip()
-with open(hard_data_set_file, 'r', encoding="utf-8") as f:
-    hard_data_set = f.read().strip()
-with open(prompt_file1, 'r', encoding="utf-8") as f:
-    prompt1 = f.read().strip()
-with open(prompt_file2, 'r', encoding="utf-8") as f:
-    prompt2 = f.read().strip()
+    with open(easy_data_set_file, 'r', encoding="utf-8") as f:
+        easy_data_set = f.read().strip()
+    with open(medium_data_set_file, 'r', encoding="utf-8") as f:
+        medium_data_set = f.read().strip()
+    with open(hard_data_set_file, 'r', encoding="utf-8") as f:
+        hard_data_set = f.read().strip()
+    with open(prompt_file1, 'r', encoding="utf-8") as f:
+        prompt1 = f.read().strip()
+    with open(prompt_file2, 'r', encoding="utf-8") as f:
+        prompt2 = f.read().strip()
 
-# Initialize data structures and loop through experiment iterations
-llm = LLMGPT3()
-max_try_time = 5
-difficulties = ["medium"]  # Extend to ["easy", "medium", "hard"] if needed
-num_examples = [0, 1, 5]
+    # Initialize data structures and loop through experiment iterations
+    llm = LLMGPT3()
+    max_try_time = 5
+    difficulties = ["medium"]  # Can be expanded to ["easy", "medium", "hard"]
+    num_examples = [0, 1, 5]
 
-all_results = {}
-for try_time in range(max_try_time):
-    print_blue(f'=============== Time {try_time} ===============')
-    # num_examples = [0]
+    all_results = {}
+    for try_time in range(max_try_time):
+        print_colored(f'=============== Time {try_time} ===============',"blue")
+        for difficulty in difficulties:
+            print_colored(f"-----------------------{difficulty}-------------------------","blue")
+
+            for diff in difficulties:
+                if diff not in all_results:
+                    all_results[diff] = {num: [] for num in num_examples}
+
+            data_set = easy_data_set
+            if difficulty == "medium":
+                data_set = medium_data_set
+            elif difficulty == "hard":
+                data_set = hard_data_set
+
+            sections = re.split(r'\n\s*\n', data_set)[:]
+            results_table = []
+
+            for num in num_examples:
+                feedback_type = "Zero-shot" if num == 0 else f"Few-shot {num}"
+                print_colored(f'=============== Feedback Level {feedback_type} ===============',"blue")
+
+                # record
+                csv_filename = f"details_{difficulty}_shot={num}_t={try_time}.csv"
+                init_csv(csv_filename)
+
+                prompt = generate_prompt1(num, difficulty) + prompt2
+
+                all_data_records = []
+                with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+                    futures = {executor.submit(evaluate_section, prompt, section, csv_filename, id): section for id, section
+                               in
+                               enumerate(sections)}
+                    results = {f'GA-{f}F': [] for f in range(6)}
+                    results.update({f'IA-{f}F': [] for f in range(6)})
+
+                    for future in concurrent.futures.as_completed(futures):
+                        evaluation_results, data_record = future.result()
+                        for key in results:
+                            results[key].extend(evaluation_results[key])
+                        all_data_records.append(data_record)
+
+                # Bulk write to CSV
+                for data_record in all_data_records:
+                    append_to_csv(csv_filename, data_record)
+
+                filtered_keys = ['GA-0F', 'GA-1F', 'GA-5F', 'IA-0F', 'IA-1F', 'IA-5F']
+                row = {key: f'{key}: {np.mean(results[key]):.2%}' for key in filtered_keys if key in results}
+                results_table.append(row)
+
+                all_results[difficulty][num].append(results)
+
+            # Print results at the end of each difficulty level
+            print("Feedback Level\t" + "\t".join(['GA-0F', 'GA-1F', 'GA-5F', 'IA-0F', 'IA-1F', 'IA-5F']))
+            for index, row in enumerate(results_table):
+                feedback_type = "Zero-shot" if num_examples[index] == 0 else f"Few-shot {num_examples[index]}"
+                row_data = "\t".join(
+                    value.split(': ')[1] if ':' in value else value
+                    for key, value in row.items() if
+                    key in ['GA-0F', 'GA-1F', 'GA-5F', 'IA-0F', 'IA-1F', 'IA-5F'])
+                print(f"{feedback_type}\t{row_data}")
+
+    print("\n--------------------------------------------\n")
+    # Print average results for each difficulty and feedback level
     for difficulty in difficulties:
-        print_blue(f"-----------------------{difficulty}-------------------------")
-
-        for diff in difficulties:
-            if diff not in all_results:
-                all_results[diff] = {num: [] for num in num_examples}
-
-        data_set = easy_data_set
-        if difficulty == "medium":
-            data_set = medium_data_set
-        elif difficulty == "hard":
-            data_set = hard_data_set
-
-        sections = re.split(r'\n\s*\n', data_set)[:]
-        results_table = []
-
+        print(f"--------- {difficulty} Average Results ---------")
         for num in num_examples:
-            feedback_type = "Zero-shot" if num == 0 else f"Few-shot {num}"
-            print_blue(f'=============== Feedback Level {feedback_type} ===============')
+            average_results = {}
+            for key in ['GA-0F', 'GA-1F', 'GA-5F', 'IA-0F', 'IA-1F', 'IA-5F']:
+                all_scores = [results[key] for results in all_results[difficulty][num]]
+                average_score = np.mean([np.mean(scores) for scores in all_scores])
+                average_results[key] = f'{average_score:.2%}'
 
-            # record
-            csv_filename = f"details_{difficulty}_shot={num}_t={try_time}.csv"
-            init_csv(csv_filename)
-
-            prompt = generate_prompt1(num, difficulty) + prompt2
-
-            all_data_records = []
-            with concurrent.futures.ThreadPoolExecutor(max_workers=15) as executor:
-                futures = {executor.submit(evaluate_section, prompt, section, csv_filename, id): section for id, section
-                           in
-                           enumerate(sections)}
-                results = {f'GA-{f}F': [] for f in range(6)}
-                results.update({f'IA-{f}F': [] for f in range(6)})
-
-                for future in concurrent.futures.as_completed(futures):
-                    evaluation_results, data_record = future.result()
-                    for key in results:
-                        results[key].extend(evaluation_results[key])
-                    all_data_records.append(data_record)
-
-            # Bulk write to CSV
-            for data_record in all_data_records:
-                append_to_csv(csv_filename, data_record)
-
-            filtered_keys = ['GA-0F', 'GA-1F', 'GA-5F', 'IA-0F', 'IA-1F', 'IA-5F']
-            row = {key: f'{key}: {np.mean(results[key]):.2%}' for key in filtered_keys if key in results}
-            results_table.append(row)
-
-            all_results[difficulty][num].append(results)
-
-        # Print results at the end of each difficulty level
-        print("Feedback Level\t" + "\t".join(['GA-0F', 'GA-1F', 'GA-5F', 'IA-0F', 'IA-1F', 'IA-5F']))
-        for index, row in enumerate(results_table):
-            feedback_type = "Zero-shot" if num_examples[index] == 0 else f"Few-shot {num_examples[index]}"
-            row_data = "\t".join(
-                value.split(': ')[1] if ':' in value else value
-                for key, value in row.items() if
-                key in ['GA-0F', 'GA-1F', 'GA-5F', 'IA-0F', 'IA-1F', 'IA-5F'])
-            print(f"{feedback_type}\t{row_data}")
-
-print("\n--------------------------------------------\n")
-# Print average results for each difficulty and feedback level
-for difficulty in difficulties:
-    print(f"--------- {difficulty} Average Results ---------")
-    for num in num_examples:
-        average_results = {}
-        for key in ['GA-0F', 'GA-1F', 'GA-5F', 'IA-0F', 'IA-1F', 'IA-5F']:
-            all_scores = [results[key] for results in all_results[difficulty][num]]
-            average_score = np.mean([np.mean(scores) for scores in all_scores])
-            average_results[key] = f'{average_score:.2%}'
-
-        row_data = "\t".join(value for value in average_results.values())
-        if num == 0:
-            print(f"Zero-shot\t{row_data}")
-        else:
-            print(f"Few-shot-{num}\t{row_data}")
+            row_data = "\t".join(value for value in average_results.values())
+            if num == 0:
+                print(f"Zero-shot\t{row_data}")
+            else:
+                print(f"Few-shot-{num}\t{row_data}")
