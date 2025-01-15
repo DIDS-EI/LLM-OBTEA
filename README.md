@@ -15,6 +15,14 @@ This repository contains the code for our project, which is divided into three m
 We are committed to continuously updating and improving this repository, so stay tuned for future enhancements and additions.
 
 
+✨️ We have uploaded the slim version at `https://github.com/DIDS-EI/OBTEA-demo`. If you want to generate a BT file for a custom task, you can refer to `OBTEA-demo/test_demo/run_demo_task.py`.
+1. First, create your own environment under `OBTEA-demo\btpg\envs`, such as `DemoEasy`. The key is to establish the action classes and condition classes in `exec_lib`. Pay attention to the preconditions (`pre`), additions (`add`), deletions (`del`), and their optional parameters for each action.
+2. In the main function `run_demo_task.py`, provide the path to `exec_lib` to import `behavior_lib`.
+3. Before running the BT algorithm, specify the goal and the current state `cur_cond_set`.
+4. To draw the BT, you need the `.btml` file and the imported `behavior_lib`.
+We will continue to update and maintain this project, so stay tuned!
+
+
 
 
 ## License
