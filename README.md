@@ -25,6 +25,14 @@ We will continue to update and maintain this project, so stay tuned!
 
 
 
+## Related Projects
+
+- **BTExpansion-demo**: A concise, well-documented demo that reproduces the Behavior Tree Expansion algorithm (AAAI 2021), with PTML export and Graphviz visualization. Useful as a minimal entry point to understand the backward expansion algorithm.
+  - https://github.com/Caiyishuai/BTExpansion-demo
+
+
+
+
 ## License
 
 This repository is released under the MIT license as found in the [LICENSE](LICENSE) file.
