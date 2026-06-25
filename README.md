@@ -8,6 +8,7 @@
 - **[2025-02]** 🏆 **MRBTP** (AAAI 2025 **Oral**) has been released. MRBTP extends our single-robot behavior-tree planning line of work to **multi-robot** collaboration with theoretical soundness & completeness guarantees.
   - Project page: <https://dids-ei.github.io/Project/MRBTP/>
   - Code: <https://github.com/DIDS-EI/MRBTP>
+  - Demo / Tutorial: <https://github.com/Caiyishuai/MRBTP-demo>
   - Paper: <https://arxiv.org/abs/2502.18072>
 - **[2025-01]** ✨ The slim demo version of this project is available at <https://github.com/DIDS-EI/OBTEA-demo>.
 
