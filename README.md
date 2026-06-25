@@ -1,6 +1,15 @@
 # Integrating Intent Understanding and Optimal Behavior Planning for Behavior Tree Generation from Human instructions (IJCAI 2024)
 
-[[Website]](https://dids-ei.github.io/Project/LLM-OBTEA/) [[arXiv]](https://arxiv.org/pdf/2405.07474)
+[[Website]](https://dids-ei.github.io/Project/LLM-OBTEA/) [[arXiv]](https://arxiv.org/pdf/2405.07474) [[Code]](https://github.com/DIDS-EI/LLM-OBTEA)
+
+## 📰 News
+
+- **[2026-06]** 🎉 **MRBTP-demo is now online!** A slim, tutorial-friendly version of MRBTP has been released at <https://github.com/Caiyishuai/MRBTP-demo>. Great for quickly learning multi-robot behavior-tree planning and porting it to your own tasks.
+- **[2025-02]** 🏆 **MRBTP** (AAAI 2025 **Oral**) has been released. MRBTP extends our single-robot behavior-tree planning line of work to **multi-robot** collaboration with theoretical soundness & completeness guarantees.
+  - Project page: <https://dids-ei.github.io/Project/MRBTP/>
+  - Code: <https://github.com/DIDS-EI/MRBTP>
+  - Paper: <https://arxiv.org/abs/2502.18072>
+- **[2025-01]** ✨ The slim demo version of this project is available at <https://github.com/DIDS-EI/OBTEA-demo>.
 
 This repository contains the code for our project, which is divided into three main sections:
 
